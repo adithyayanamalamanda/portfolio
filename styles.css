@@ -2004,8 +2004,60 @@ section {
 }
 
 @media (max-width: 480px) {
+  .container-inner {
+    padding: 0 16px;
+  }
+
+  section {
+    padding: 45px 0;
+  }
+
+  .hero-heading {
+    font-size: 2.1rem;
+  }
+
   .hero-stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .project-card {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .project-num-huge {
+    font-size: 2.2rem;
+  }
+
+  .project-card-title {
+    font-size: 1.4rem;
+  }
+
+  .project-card-visual {
+    height: 200px;
+  }
+
+  .terminal-container {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .terminal-body {
+    font-size: 0.78rem;
+  }
+
+  .avatar-card, #threeJsOrbContainer {
+    width: 200px;
+    height: 200px;
+  }
+
+  .skills-categories-grid {
+    grid-template-columns: 1fr;
   }
 }
 
