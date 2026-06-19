@@ -4,27 +4,6 @@
    1. THEME SYSTEM
    ══════════════════════════════════════════════════ */
 const html = document.documentElement;
-const themeToggleBtn = document.getElementById('themeToggle');
-
-function getTheme() {
-  return localStorage.getItem('theme') || 'dark';
-}
-
-function applyTheme(theme) {
-  html.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
-  
-  // Dispatch theme changed event for other components (like radar chart, 3D orb)
-  window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
-}
-
-themeToggleBtn.addEventListener('click', () => {
-  const currentTheme = getTheme();
-  applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-});
-
-// Initial theme apply
-applyTheme(getTheme());
 
 /* ══════════════════════════════════════════════════
    2. MOBILE NAV & SCROLL EFFECTS
@@ -79,10 +58,9 @@ window.addEventListener('scroll', () => {
   const isMobile = () => window.innerWidth < 768;
   
   function getThemeAwareColors() {
-    const isLight = html.getAttribute('data-theme') === 'light';
     return {
-      primary: (alpha) => isLight ? `rgba(182, 0, 168, ${alpha})` : `rgba(0, 255, 224, ${alpha})`,
-      secondary: (alpha) => isLight ? `rgba(118, 33, 176, ${alpha})` : `rgba(240, 180, 41, ${alpha})`,
+      primary: (alpha) => `rgba(182, 0, 168, ${alpha})`,
+      secondary: (alpha) => `rgba(118, 33, 176, ${alpha})`,
     };
   }
 
@@ -408,12 +386,11 @@ window.addEventListener('scroll', () => {
   let animationId = null;
 
   function getThemeColors() {
-    const isLight = html.getAttribute('data-theme') === 'light';
     return {
-      grid: isLight ? 'rgba(12, 12, 12, 0.12)' : 'rgba(215, 226, 234, 0.12)',
-      spoke: isLight ? 'rgba(12, 12, 12, 0.06)' : 'rgba(215, 226, 234, 0.06)',
-      labels: isLight ? '#1a1a1a' : '#bbccd7',
-      ticks: isLight ? '#777777' : '#646973',
+      grid: 'rgba(12, 12, 12, 0.12)',
+      spoke: 'rgba(12, 12, 12, 0.06)',
+      labels: '#1a1a1a',
+      ticks: '#777777',
       fill: 'rgba(182, 0, 168, 0.15)',
       stroke: '#B600A8'
     };
@@ -536,10 +513,7 @@ window.addEventListener('scroll', () => {
 
   observer.observe(skillsSection);
   
-  // Re-draw on theme live change
-  window.addEventListener('themeChanged', () => {
-    drawRadar(progress);
-  });
+
 })();
 
 /* ══════════════════════════════════════════════════
@@ -645,14 +619,13 @@ window.addEventListener('scroll', () => {
     neofetch: {
       desc: 'System neofetch spec sheet',
       run: () => {
-        const isLight = html.getAttribute('data-theme') === 'light';
         return `   ,---.       OS        : Adithya Shell v2.1 (hacker edition)
   /     \\      Uptime    : 2+ Years engineering
   \\ .-. /      Host      : Yanamalamanda Adithya
    \\   /       Role      : CS Student (DS & Cyber Security)
    /   \\       Target    : AI Internships & Collaborations
   /     \\      Resolution: ${window.innerWidth}x${window.innerHeight}
- /       \\     Theme     : ${isLight ? 'Light Theme Clean' : 'Dark Theme Glowing'}`
+ /       \\     Theme     : Light Theme Clean`
       }
     },
     date: {
@@ -821,8 +794,7 @@ window.addEventListener('scroll', () => {
   let previousMousePosition = { x: 0, y: 0 };
   
   function getThemeColor() {
-    const isLight = html.getAttribute('data-theme') === 'light';
-    return isLight ? 0x1a1a1a : 0xBBCCD7;
+    return 0x1a1a1a;
   }
 
   function initThree() {
@@ -942,12 +914,7 @@ window.addEventListener('scroll', () => {
   initThree();
   animate();
   
-  // Handle theme live updates in Three
-  window.addEventListener('themeChanged', (e) => {
-    if (meshOutline) {
-      meshOutline.material.color.setHex(getThemeColor());
-    }
-  });
+
 })();
 
 /* ══════════════════════════════════════════════════
